@@ -39,7 +39,7 @@ jobs:
 
       - name: Build Electron app
         run: |
-          npm exec electron-builder -- ${{ matrix.build_args }}
+          npm exec electron-builder -- ${{ matrix.build_args }} --publish=never
 
       - name: Upload build artifacts
         uses: softprops/action-gh-release@v1

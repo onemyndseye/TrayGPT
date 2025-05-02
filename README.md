@@ -18,6 +18,10 @@ It runs from your system tray and keeps ChatGPT a single click away — distract
 
 ---
 
+Download and run the latest AppImage or Wine32 EXE from the Releases page. 
+
+
+
 ## 🚀 Install from Source
 
 ```bash
