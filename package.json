@@ -1,13 +1,13 @@
 {
   "name": "TrayGPT",
-  "version": "0.0.2a",
+  "version": "0.0.2b",
   "description": "Floating ChatGPT Overlay using Electron",
   "author": "onemyndseye",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "prebuild": "find dist -mindepth 1 ! -name '*.AppImage' -delete",
-    "build": "electron-builder --linux AppImage && cd dist && sha256sum *.AppImage > TrayGPT.sha256sum"
+    "prebuild": "find dist -mindepth 1 ! -name '*.AppImage' ! -name '*.exe' -delete",
+    "build": "electron-builder --linux AppImage --win nsis && cd dist && sha256sum *.{AppImage,exe} > TrayGPT.sha256sum"
   },
   "devDependencies": {
     "electron": "^29.0.0",
@@ -16,16 +16,25 @@
   "build": {
     "appId": "com.traygpt.app",
     "productName": "TrayGPT",
+    "files": [
+      "**/*",
+      "!node_modules/*",
+      "!build_appimage.sh"
+    ],
+    "publish": null,
     "linux": {
       "target": "AppImage",
       "category": "Utility",
       "icon": "icon.png"
     },
-    "publish": null,
-    "files": [
-      "**/*",
-      "!node_modules/*",
-      "!build_appimage.sh"
-    ]
+    "win": {
+      "target": "nsis",
+      "icon": "icon.png"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false
+    }
   }
 }

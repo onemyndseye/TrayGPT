@@ -1,4 +1,4 @@
-name: Build and Release AppImage
+name: Build and Release (Linux + Windows)
 
 on:
   push:
@@ -7,7 +7,10 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout code
@@ -21,12 +24,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build AppImage
-        run: npx electron-builder --linux AppImage
+      - name: Build Electron app
+        run: npm run build
 
-      - name: Upload AppImage to Release
+      - name: Upload artifacts to GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          files: dist/*.AppImage
+          files: |
+            dist/*.AppImage
+            dist/*.exe
+            dist/*.sha256sum
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
