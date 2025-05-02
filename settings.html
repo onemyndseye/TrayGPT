@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>TrayGPT Settings</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    label { display: block; margin: 10px 0 5px; }
+    input, select { width: 100%; padding: 5px; }
+    button { margin-top: 20px; padding: 10px 15px; }
+  </style>
+</head>
+<body>
+  <h2>TrayGPT Settings</h2>
+  <form id="settings-form">
+    <label for="start_hidden">Start Hidden:</label>
+    <select id="start_hidden">
+      <option value="true">Yes</option>
+      <option value="false">No</option>
+    </select>
+
+    <label for="dock_location">Dock Location:</label>
+    <select id="dock_location">
+      <option value="top-left">Top Left</option>
+      <option value="top-right">Top Right</option>
+      <option value="bottom-left">Bottom Left</option>
+      <option value="bottom-right">Bottom Right</option>
+    </select>
+
+    <label for="auto_hide_on_blur">Auto Hide on Blur:</label>
+    <select id="auto_hide_on_blur">
+      <option value="true">Yes</option>
+      <option value="false">No</option>
+    </select>
+
+
+    <button type="submit">Save Settings</button>
+  </form>
+
+  <script>
+    const { ipcRenderer } = window.electron;
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      const config = await ipcRenderer.invoke('get-config');
+      document.getElementById('start_hidden').value = String(config.start_hidden);
+      document.getElementById('dock_location').value = config.dock_location;
+
+      document.getElementById('settings-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const newConfig = {
+          start_hidden: document.getElementById('start_hidden').value === 'true',
+          dock_location: document.getElementById('dock_location').value
+        };
+        ipcRenderer.send('save-config', newConfig);
+        window.close();
+      });
+    });
+  </script>
+</body>
+</html>

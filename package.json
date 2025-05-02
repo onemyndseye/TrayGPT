@@ -1,0 +1,12 @@
+{
+  "name": "TrayGPT",
+  "version": "0.0.1",
+  "description": "Floating ChatGPT Overlay using Electron",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron": "^29.0.0"
+  }
+}

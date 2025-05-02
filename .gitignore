@@ -1,0 +1,8 @@
+node_modules/
+release/
+AppDir/
+*.AppImage
+*.log
+.DS_Store
+traygpt.desktop
+TrayGPT-*.AppImage
