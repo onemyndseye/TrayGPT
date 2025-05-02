@@ -1,6 +1,6 @@
 {
   "name": "TrayGPT",
-  "version": "0.0.2",
+  "version": "0.0.2a",
   "description": "Floating ChatGPT Overlay using Electron",
   "author": "onemyndseye",
   "main": "main.js",
