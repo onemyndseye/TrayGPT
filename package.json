@@ -1,6 +1,6 @@
 {
   "name": "TrayGPT",
-  "version": "0.0.2b",
+  "version": "0.0.25",
   "description": "TrayGPT is a minimal ChatGPT client that runs from the system tray.",
   "main": "main.js",
   "scripts": {
@@ -11,6 +11,7 @@
   "build": {
     "appId": "com.onemyndseye.traygpt",
     "productName": "TrayGPT",
+    "artifactName": "${productName}-${version}.${ext}",
     "win": {
       "target": "nsis"
     },
