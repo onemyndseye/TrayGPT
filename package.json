@@ -6,7 +6,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "prebuild": "find dist -mindepth 1 ! -name '*.AppImage' ! -name '*.exe' -delete",
+    "prebuild": "mkdir -p dist && find dist -type f ! -name '*.AppImage' ! -name '*.exe' -delete"
     "build": "electron-builder --linux AppImage --win nsis && cd dist && sha256sum *.{AppImage,exe} > TrayGPT.sha256sum"
   },
   "devDependencies": {
