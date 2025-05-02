@@ -3,7 +3,7 @@
 **TrayGPT** is a floating, always-on-top ChatGPT overlay built with Electron.  
 It runs from your system tray and keeps ChatGPT a single click away — distraction-free, lightweight, and minimal.
 
-![screenshot](./assets/screenshot.png)
+![screenshot](./assets/traygpt_screenshot.png)
 
 ---
 
