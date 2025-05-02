@@ -9,7 +9,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -21,19 +21,10 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install Wine (for Windows build)
-        run: |
-          sudo dpkg --add-architecture i386
-          sudo mkdir -pm755 /etc/apt/keyrings
-          sudo curl -fsSL https://dl.winehq.org/wine-builds/winehq.key | sudo tee /etc/apt/keyrings/winehq-archive.key
-          sudo curl -fsSL https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources | sudo tee /etc/apt/sources.list.d/winehq.sources
-          sudo apt update
-          sudo apt install --install-recommends winehq-stable -y
-
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Electron app for Linux and Windows
+      - name: Build Electron app
         run: npm run build
 
       - name: Upload artifacts to GitHub Release
