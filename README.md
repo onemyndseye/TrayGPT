@@ -12,8 +12,7 @@ It runs from your system tray and keeps ChatGPT a single click away — distract
 - 🧠 Full ChatGPT web UI
 - 📌 Always-on-top frameless window
 - 🔄 Auto-hide on focus loss (optional)
-- 📦 AppImage builds for easy install
-- 📦 EXE builds for easy install
+- 📦 AppImage and EXE builds for easy install
 - 🔗 External links open in system browser
 - 🛠️ Settings UI (dock location, window size, etc.)
 
