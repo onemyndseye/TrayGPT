@@ -6,7 +6,8 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder --linux AppImage"
+    "prebuild": "find dist -mindepth 1 ! -name '*.AppImage' -delete",
+    "build": "electron-builder --linux AppImage && cd dist && sha256sum *.AppImage > TrayGPT.sha256sum"
   },
   "devDependencies": {
     "electron": "^29.0.0",
@@ -20,6 +21,7 @@
       "category": "Utility",
       "icon": "icon.png"
     },
+    "publish": null,
     "files": [
       "**/*",
       "!node_modules/*",
