@@ -2,6 +2,7 @@
   "name": "TrayGPT",
   "version": "0.0.2b",
   "description": "Tray-based ChatGPT interface",
+  "author": "onemyndseye",
   "main": "main.js",
   "scripts": {
     "prebuild": "mkdir -p dist && find dist -type f ! -name '*.AppImage' ! -name '*.exe' -delete",
@@ -11,9 +12,7 @@
     "appId": "com.onemyndseye.traygpt",
     "productName": "TrayGPT",
     "files": [
-      "dist/**/*",
-      "main.js",
-      "package.json"
+      "**/*"
     ],
     "linux": {
       "target": ["AppImage"],
@@ -23,10 +22,8 @@
       "target": ["nsis"]
     }
   },
-  "dependencies": {
-    "electron": "^29.4.6"
-  },
   "devDependencies": {
+    "electron": "^29.4.6",
     "electron-builder": "^24.13.3"
   }
 }
