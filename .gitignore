@@ -1,8 +1,23 @@
+# Node dependencies
 node_modules/
-release/
-AppDir/
+
+# Electron build output
+dist/
+out/
+
+# AppImage & packaging
 *.AppImage
+*.snap
+*.deb
+*.rpm
+
+# Logs
 *.log
+
+# OS cruft
 .DS_Store
+Thumbs.db
+
+# Build scripts & misc
+build_appimage.sh
 traygpt.desktop
-TrayGPT-*.AppImage

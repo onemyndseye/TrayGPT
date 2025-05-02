@@ -1,5 +1,5 @@
 // main.js
-const { app, BrowserWindow, Tray, Menu, nativeImage, screen, ipcMain } = require('electron');
+const { app, BrowserWindow, Tray, Menu, nativeImage, screen, ipcMain, shell } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
@@ -65,14 +65,14 @@ function createWindow() {
         focusable: true,
         icon: path.join(__dirname, 'icon.png'),
                             webPreferences: {
-                                nodeIntegration: false,
-                                contextIsolation: true,
-                                sandbox: false,
-                                partition: 'persist:traygpt' // persistent browser session
+                                preload: path.join(__dirname, 'preload.js'),
+                            contextIsolation: true,
+                            sandbox: false,
+                            partition: 'persist:traygpt'
                             }
     });
 
-    // Patch default UA: remove Electron, fake safe Chrome version
+    // Safe hybrid user agent (no Electron tag)
     const defaultUA = win.webContents.userAgent;
     const safeUA = defaultUA
     .replace(/Electron\/\S+/, '')
@@ -80,6 +80,30 @@ function createWindow() {
     win.webContents.setUserAgent(safeUA);
 
     win.loadURL('https://chat.openai.com');
+
+    // 💡 External protocol handler at main process level
+    const allowedSchemes = ['http:', 'https:', 'mailto:', 'steam:'];
+
+    win.webContents.setWindowOpenHandler(({ url }) => {
+        try {
+            const scheme = new URL(url).protocol;
+            if (allowedSchemes.includes(scheme)) {
+                shell.openExternal(url);
+            }
+        } catch {}
+        return { action: 'deny' };
+    });
+
+    win.webContents.on('will-navigate', (event, url) => {
+        try {
+            const scheme = new URL(url).protocol;
+            const isInternal = url.startsWith('https://chat.openai.com');
+            if (!isInternal && allowedSchemes.includes(scheme)) {
+                event.preventDefault();
+                shell.openExternal(url);
+            }
+        } catch {}
+    });
 
     win.on('resize', () => {
         if (!win.isMinimized()) {
