@@ -1,26 +1,30 @@
 {
   "name": "TrayGPT",
   "version": "0.0.2b",
-  "description": "Tray-based ChatGPT interface",
-  "author": "onemyndseye",
+  "description": "TrayGPT is a minimal ChatGPT client that runs from the system tray.",
   "main": "main.js",
   "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
     "build": "electron-builder --linux AppImage --win nsis"
   },
   "build": {
     "appId": "com.onemyndseye.traygpt",
     "productName": "TrayGPT",
-    "publish": [],
-    "files": [
-      "**/*"
-    ],
-    "linux": {
-      "target": ["AppImage"],
-      "category": "Utility"
-    },
     "win": {
-      "target": ["nsis"]
-    }
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    },
+    "publish": []
+  },
+  "author": "onemyndseye",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "electron-store": "^8.1.0",
+    "ws": "^8.17.0"
   },
   "devDependencies": {
     "electron": "^29.4.6",
