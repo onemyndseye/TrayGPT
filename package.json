@@ -10,6 +10,7 @@
   "build": {
     "appId": "com.onemyndseye.traygpt",
     "productName": "TrayGPT",
+    "publish": "never",
     "files": [
       "**/*"
     ],
