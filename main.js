@@ -7,6 +7,8 @@ let tray = null;
 let win = null;
 let settingsWin = null;
 
+
+
 const CONFIG_PATH = path.join(app.getPath('userData'), 'settings.json');
 
 function loadConfig() {
@@ -196,6 +198,14 @@ app.whenReady().then(() => {
 
     tray.setContextMenu(contextMenu);
 });
+
+const { Notification } = require('electron');
+
+// IPC: Handle notification request from preload
+ipcMain.handle('notify', async (event, { title, body }) => {
+  new Notification({ title, body }).show();
+});
+
 
 ipcMain.handle('get-config', () => loadConfig());
 ipcMain.on('save-config', (event, newConfig) => {

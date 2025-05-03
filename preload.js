@@ -5,8 +5,24 @@ contextBridge.exposeInMainWorld('electron', {
   ipcRenderer: {
     send: (channel, data) => ipcRenderer.send(channel, data),
     invoke: (channel, data) => ipcRenderer.invoke(channel, data)
+  },
+
+contextBridge.exposeInMainWorld('Notification', class {
+  constructor(title, options) {
+    ipcRenderer.invoke('notify', { title, ...options });
+  }
+
+  static requestPermission() {
+    return Promise.resolve('granted'); // Fake it!
+  }
+
+  static get permission() {
+    return 'granted';
   }
 });
+
+
+
 
 window.addEventListener('DOMContentLoaded', () => {
   document.body.addEventListener('click', (e) => {
